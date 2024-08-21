@@ -3,7 +3,7 @@ on: push
 jobs:
   generate-clients:
     runs-on: ubuntu-latest
-    name: Example
+    name: Generate Python client
     steps:
     - uses: actions/checkout@main
     - name: Generate new client
