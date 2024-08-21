@@ -10,3 +10,4 @@ jobs:
       uses: openapi-generators/openapitools-generator-action@v1
       with:
         generator: python
+        openapi-file: /openapi/wmata.yaml
