@@ -1,0 +1,13 @@
+name: Generate clients
+on: push
+jobs:
+  generate-clients:
+    runs-on: ubuntu-latest
+    name: Generate Python client
+    steps:
+    - uses: actions/checkout@main
+    - name: Generate new client
+      uses: openapi-generators/openapitools-generator-action@v1
+      with:
+        generator: python
+        openapi-file: openapi/wmata.yaml
