@@ -11,9 +11,9 @@ jobs:
       with:
         generator: python
         openapi-file: openapi/wmata.yaml
-  - name: 'Upload python client'
-    uses: actions/upload-artifact@v4
-    with:
-      name: Python source
-      path: /github/workspace/python-client
-      retention-days: 5
+    - name: 'Upload python client'
+      uses: actions/upload-artifact@v4
+      with:
+        name: Python source
+        path: /github/workspace/python-client
+        retention-days: 5
