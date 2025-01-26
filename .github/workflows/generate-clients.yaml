@@ -15,5 +15,5 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: Python source
-        path: "${GITHUB_WORKSPACE}/python-client"
+        path: ${{ github.workspace }}/python-client
         retention-days: 5
