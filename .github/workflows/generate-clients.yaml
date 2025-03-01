@@ -17,3 +17,41 @@ jobs:
         name: Python source
         path: ${{ github.workspace }}/python-client
         retention-days: 5
+  build_wheels:
+    name: Build wheels
+    needs: generate-clients
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+
+      # - name: Test source distribution
+      #   shell: bash
+      #   run: |
+      #     python -m venv test-sdist
+      #     source test-sdist/bin/activate
+      #     which python
+      #     python -m pip install --force-reinstall `find dist -name "*.tar.gz"`[${{ inputs.test_extras }}]
+      #     cd ${{ runner.temp }}
+      #     ${{ inputs.test_command }}
+      #   if: ${{ inputs.test_command != '' && inputs.test_extras != '' }}
+
+      # - name: Test source distribution
+      #   shell: bash
+      #   run: |
+      #     python -m venv test-sdist
+      #     source test-sdist/bin/activate
+      #     which python
+      #     python -m pip install --force-reinstall `find dist -name "*.tar.gz"`
+      #     cd ${{ runner.temp }}
+      #     ${{ inputs.test_command }}
+      #   if: ${{ inputs.test_command != '' && inputs.test_extras == '' }}
+
+      - name: Build wmata wheel
+        shell: bash
+        run: python wheel ${{ github.workspace }}/python-client -w ${{ github.workspace }}/wheelhouse
+        if: ${{ inputs.pure_python_wheel == 'true' }}
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: wmata-wheels-${{ strategy.job-index }}
+          path: ${{ github.workspace }}/wheelhouse/*.whl
