@@ -6,6 +6,9 @@ jobs:
     name: Generate Python client
     steps:
     - uses: actions/checkout@main
+    - name: Install deps
+      shell: bash
+      run: sudo apt update; sudo apt install pipx; pipx ensurepath; sudo pipx ensurepath --global; pipx install poetry
     - name: Generate python client
       uses: openapi-generators/openapitools-generator-action@v1
       with:
@@ -18,11 +21,29 @@ jobs:
         path: ${{ github.workspace }}/python-client
         retention-days: 5
     - uses: actions/setup-python@v5
+    - name: Install pipx
+      shell: bash
+      run: pip install pipx
+      - name: Install pipx
+      shell: bash
+      run: pipx install poetry; pipx ensurepath
     - name: Build wmata wheel
       shell: bash
-      run: pip wheel ${{ github.workspace }}/python-client -w ${{ github.workspace }}/wheelhouse
+      run: poetry build --project=${{ github.workspace }}/python-client
 
     - uses: actions/upload-artifact@v4
       with:
         name: wmata-wheels-${{ strategy.job-index }}
-        path: ${{ github.workspace }}/wheelhouse/*.whl
+        path: ${{ github.workspace }}/python-client/dist/*.whl
+    # - name: Upload release to PyPI
+    #   runs-on: ubuntu-latest
+    #   environment:
+    #     name: pypi
+    #     url: https://pypi.org/p/<your-pypi-project-name>
+    #   permissions:
+    #     id-token: write  # IMPORTANT: this permission is mandatory for trusted publishing
+    #   steps:
+    #   # retrieve your distributions here
+
+    #   - name: Publish package distributions to PyPI
+    #     uses: pypa/gh-action-pypi-publish@release/v1
