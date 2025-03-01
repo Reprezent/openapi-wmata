@@ -26,7 +26,7 @@ jobs:
 
       - name: Build wmata wheel
         shell: bash
-        run: python wheel ${{ github.workspace }}/python-client -w ${{ github.workspace }}/wheelhouse
+        run: pip wheel ${{ github.workspace }}/python-client -w ${{ github.workspace }}/wheelhouse
 
       - uses: actions/upload-artifact@v4
         with:
