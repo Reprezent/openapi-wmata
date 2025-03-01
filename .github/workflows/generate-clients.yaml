@@ -13,8 +13,8 @@ jobs:
       uses: openapi-generators/openapitools-generator-action@v1
       with:
         generator: python
-        openapi-file: openapi/wmata.yaml
-        config-file: openapi/configs/python-config.yaml
+        openapi-file: ${{ github.workspace }}/openapi/wmata.yaml
+        config-file: ${{ github.workspace }}/openapi/configs/python-config.yaml
     - name: 'Upload python client'
       uses: actions/upload-artifact@v4
       with:
