@@ -1,5 +1,5 @@
 packageName: openapi_wmata
 packageUrl: https://github.com/Reprezent/openapi-wmata
-packageVersion: 1.0.1
+packageVersion: 1.0.3
 projectName: openapi-wmata
 generateSourceCodeOnly: false
